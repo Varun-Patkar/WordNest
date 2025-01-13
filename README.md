@@ -1,4 +1,4 @@
-# WordNest
+# 🚧 WordNest (DEV in Progress)
 
 Welcome to **WordNest**, a fancy-schmancy blogging platform built with the magical powers of **Next.js 15**! This project is a one-stop shop for creating and viewing blogs instantly — no annoying page reloads here. It's lightning-fast, optimized for performance, and blessed with top-tier SEO enhancements to make your blogs shine on the interwebs.
 
