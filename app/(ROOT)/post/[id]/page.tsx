@@ -4,8 +4,10 @@ import { POST_BY_ID_QUERY } from "@/sanity/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import markdownit from "markdown-it";
+import { Skeleton } from "@/components/ui/skeleton";
+import View from "@/components/View";
 
 const md = markdownit();
 export const experimental_ppr = true;
@@ -64,6 +66,9 @@ const Post = async ({ params }: { params: Promise<{ id: string }> }) => {
 				</div>
 				<hr className="divider" />
 				{/*TODO: recommended posts here*/}
+				<Suspense fallback={<Skeleton className="view_skeleton" />}>
+					<View id={id} />
+				</Suspense>
 			</section>
 		</>
 	);

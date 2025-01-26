@@ -1,0 +1,9 @@
+#sentry-feedback {
+	position: fixed;
+	bottom: 2rem;
+	/* Adjust the value as needed */
+	left: 2rem;
+	/* Adjust the value as needed */
+	z-index: 1000;
+	/* Ensure it stays on top of other elements */
+}

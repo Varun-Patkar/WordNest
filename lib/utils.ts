@@ -12,3 +12,18 @@ export function formatDate(date: string) {
     year: "numeric",
   })
 }
+export function formatViews(views: number) {
+  if (views === 1) {
+    return '1 View';
+  } else if (views === 0) {
+    return 'No Views yet';
+  } else if (views > 999) {
+    return `${(views / 1000).toFixed(1)}k Views`;
+  } else {
+    return `${views} Views`;
+  }
+}
+
+export function parseServerActionResponse<T>(response: T) {
+  return JSON.parse(JSON.stringify(response))
+}
