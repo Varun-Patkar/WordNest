@@ -1,5 +1,4 @@
-# 🚧 WordNest (DEV in Progress)
-
+# [WordNest](https://wordnest-varun.vercel.app/) 
 Welcome to **WordNest**, a fancy-schmancy blogging platform built with the magical powers of **Next.js 15**! This project is a one-stop shop for creating and viewing blogs instantly — no annoying page reloads here. It's lightning-fast, optimized for performance, and blessed with top-tier SEO enhancements to make your blogs shine on the interwebs.
 
 ---
@@ -66,8 +65,7 @@ Just me, myself, and I for now! If you'd like to check out more of my projects o
 
 ## 🌐 Deployment
 
-[Placeholder for deployment link]  
-Stay tuned for when this baby goes live!
+[Link to Deployed App](https://wordnest-varun.vercel.app/)
 
 ---
 
