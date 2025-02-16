@@ -9,6 +9,10 @@ import markdownit from "markdown-it";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 import PostCard, { PostCardType } from "@/components/PostCard";
+import { auth } from "@/auth";
+import PostDeleteButton from "@/components/PostDeleteButton";
+import { Button } from "@/components/ui/button";
+import { FaEdit } from "react-icons/fa";
 
 const md = markdownit();
 export const experimental_ppr = true;
@@ -16,11 +20,13 @@ export const experimental_ppr = true;
 const Post = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const id = (await params).id;
 	const [post, { select: editorPosts }] = await Promise.all([
-		client.fetch(POST_BY_ID_QUERY, { id }),
+		client.withConfig({ useCdn: false }).fetch(POST_BY_ID_QUERY, { id }),
 		client.fetch(PLAYLIST_BY_SLUG_QUERY, {
 			slug: "editor-picks",
 		}),
 	]);
+	const session = await auth();
+	const isAuthor = session?.id === post.author?.id;
 	if (!post) return notFound();
 	const parsedContent = md.render(post?.blogText);
 	return (
@@ -28,7 +34,6 @@ const Post = async ({ params }: { params: Promise<{ id: string }> }) => {
 			<section className="pink_container !min-h-[230px]">
 				<p className="tag">{formatDate(post._createdAt)}</p>
 				<h1 className="heading">{post.title}</h1>
-				<p className="sub-heading !max-w-5xl">{post.description}</p>
 			</section>
 			<section className="section_container">
 				<img
@@ -60,6 +65,19 @@ const Post = async ({ params }: { params: Promise<{ id: string }> }) => {
 							<p className="category-tag">{post.category}</p>
 						</Link>
 					</div>
+					{isAuthor && (
+						<div className="mt-4 flex gap-2">
+							<Link href={`/post/edit/${post._id}`} className="w-1/2">
+								<Button className="startup-form_btn flex items-center w-full m-4 text-white">
+									<FaEdit className="mr-2" />
+									Edit Post
+								</Button>
+							</Link>
+							<div className="w-1/2">
+								<PostDeleteButton postId={post._id} />
+							</div>
+						</div>
+					)}
 					<h3 className="text-30-bold">Post Details</h3>
 					{parsedContent ? (
 						<article

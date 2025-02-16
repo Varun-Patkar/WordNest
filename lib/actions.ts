@@ -10,14 +10,14 @@ export const createPost = async (state: any, form: FormData, blogText: string) =
 	if (!session) return parseServerActionResponse({
 		error: "Not signed in", status: "ERROR"
 	})
-	const { title, description, category, link } = Object.fromEntries(Array.from(form).filter(([key]) => key !== "blogText"));
+	const { title, description, category, image } = Object.fromEntries(Array.from(form).filter(([key]) => key !== "blogText"));
 	const slug = slugify(title as string, { lower: true, strict: true });
 	try {
 		const post = {
 			title,
 			description,
 			category,
-			image: link,
+			image: image,
 			blogText,
 			slug: {
 				_type: slug,
@@ -36,3 +36,9 @@ export const createPost = async (state: any, form: FormData, blogText: string) =
 		return parseServerActionResponse({ error: JSON.stringify(error), status: "ERROR" });
 	}
 }
+
+export const updatePost = async (postId: string, updatedPost: Record<string, any>) => { try { const result = await writeClient.patch(postId).set(updatedPost).commit(); return { status: "SUCCESS", ...result }; } catch (error) { console.error(error); return { status: "ERROR", error: JSON.stringify(error) }; } };
+
+export const deletePost = async (postId: string) => {
+	try { await writeClient.delete(postId); return { status: "SUCCESS" }; } catch (error) { console.error(error); return { status: "ERROR", error: JSON.stringify(error) }; }
+};
